@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app-ecommerce-serratec",
-    "slug": "app-ecommerce-serratec",
+    "name": "app-livraria-habitual",
+    "slug": "app-livraria-habitual",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
