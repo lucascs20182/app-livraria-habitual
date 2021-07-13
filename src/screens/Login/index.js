@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { storeData } from '../../storage';
+
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
 export default function Login({ navigation }) {
@@ -8,23 +11,25 @@ export default function Login({ navigation }) {
   function handleLogar() {
     console.log(username, senha);
 
+    storeData({ key: 'Usuário logado' })
+
     navigation.navigate('Home');
   }
 
   return (
     <View style={styles.container}>
       <View>
-      <View>
-        <Text>Username</Text>
-        <TextInput style={styles.textInput} placeholder="ex.: lucascs20182"
-          value={username} onChangeText={e => setUsername(e)} />
-      </View>
+        <View>
+          <Text>Username</Text>
+          <TextInput style={styles.textInput} placeholder="ex.: lucascs20182"
+            value={username} onChangeText={e => setUsername(e)} />
+        </View>
 
-      <View>
-        <Text>Senha</Text>
-        <TextInput style={styles.textInput} placeholder="*******"
-          secureTextEntry={true} value={senha} onChangeText={e => setSenha(e)} />
-      </View>
+        <View>
+          <Text>Senha</Text>
+          <TextInput style={styles.textInput} placeholder="*******"
+            secureTextEntry={true} value={senha} onChangeText={e => setSenha(e)} />
+        </View>
       </View>
 
       <View style={styles.containerButton}>
