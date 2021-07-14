@@ -24,17 +24,14 @@ export default function Produtos() {
     {/* prevents routes being rendered before usuarioLogado' state is set */}
     { produtos.length != 0 ?
         <View style={styles.container}>
-            {/* <Text>produtos</Text>
-            {console.log(produtos)}
-            <Button title="SALVAR" onPress={() => storeData({ key: 'Salveiiii' })} />
-            <Button title="RECUPERAR" onPress={() => getData()} />
-            <Button title="DELETAR" onPress={() => deleteKey()} /> */}
-
-            <FlatList data={produtos} renderItem={({item}) => (
-                <TouchableOpacity>
-                    <Text>{item.nome}</Text>
-                    <Text>{item.url}</Text>
-                </TouchableOpacity>
+            <FlatList 
+                data={produtos} 
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => (
+                    <TouchableOpacity>
+                        <Text>{item.nome}</Text>
+                        <Text>{item.url}</Text>
+                    </TouchableOpacity>
             )} />
         </View>
     :
