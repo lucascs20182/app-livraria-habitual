@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
 
 import { storeData, getData, deleteKey } from '../../storage';
 
@@ -12,7 +12,6 @@ export default function Produtos() {
         obterTodos()
             .then((resposta) => {
                 setProdutos(resposta.data);
-                console.log(produtos);
             })
             .catch((erro) => {
                 alert("Erro ao listar produtos! Verifique o console.");
@@ -21,12 +20,28 @@ export default function Produtos() {
     }, [])
 
     return (
+        <>
+    {/* prevents routes being rendered before usuarioLogado' state is set */}
+    { produtos.length != 0 ?
         <View style={styles.container}>
-            <Text>produtos</Text>
+            {/* <Text>produtos</Text>
+            {console.log(produtos)}
             <Button title="SALVAR" onPress={() => storeData({ key: 'Salveiiii' })} />
             <Button title="RECUPERAR" onPress={() => getData()} />
-            <Button title="DELETAR" onPress={() => deleteKey()} />
+            <Button title="DELETAR" onPress={() => deleteKey()} /> */}
+
+            <FlatList data={produtos} renderItem={({item}) => (
+                <TouchableOpacity>
+                    <Text>{item.nome}</Text>
+                    <Text>{item.url}</Text>
+                </TouchableOpacity>
+            )} />
         </View>
+    :
+        <Text></Text>
+    }
+    </> 
+        
     );
 }
 
