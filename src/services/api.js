@@ -6,24 +6,16 @@ const api = axios.create({
     baseURL: 'https://livrariahabitualapi.herokuapp.com'
 })
 
-// api.interceptors.request.use((config) => {
-//     const token = getData('token');
+function defineHeaderAuthorization() {
+    async function recuperarToken() {
+        const token = await getData('token');
 
-//     if(token) {
-//         config.headers.Authorization = token;
-//     }
+        api.defaults.headers.common['Authorization'] = token;
+    }
+    
+    recuperarToken();
+}
 
-//     return config;
-// })
-
-// api.interceptors.request.use((config) => {
-//     const token = getData('token');
-
-//     if(token) {
-//         config.headers.Authorization = token; 
-//     }
-
-//     return config;
-// });
+defineHeaderAuthorization();
 
 export default api;

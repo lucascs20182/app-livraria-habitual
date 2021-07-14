@@ -22,7 +22,7 @@ export default function Cadastro({ navigation }) {
     cadastrar(email, username, senha, nome, cpf, cep, numero, complemento)
     .then((resposta) => {
       alert("Usuário cadastrado! Faça o login.");
-      navigation.navigate('Home');
+      navigation.navigate('Login');
     })
     .catch((erro) => {
       alert("Erro! Verifique o console.");

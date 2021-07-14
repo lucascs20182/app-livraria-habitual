@@ -4,6 +4,8 @@ export const storeData = async (key, value) => {
     try {
         const jsonValue = JSON.stringify(value);
 
+        // console.log(key + ':' + jsonValue)
+
         await AsyncStorage.setItem(`@storage_${key}`, jsonValue);
     } catch (e) {
         console.log("erro ao salvar dados");
@@ -12,13 +14,14 @@ export const storeData = async (key, value) => {
 
 export const getData = async (key) => {
     try {
-        const jsonValue = await AsyncStorage.getItem(`@storage_${key}`)
+        const value = await AsyncStorage.getItem(`@storage_${key}`)
 
         // if (jsonValue != null) {
-        //     console.log(JSON.parse(jsonValue));
+        //     console.log('o' + JSON.parse(jsonValue));
         // }
+        // console.log(key + ':' + value)
 
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        return value != null ? JSON.parse(value) : null;
     } catch (e) {
         console.log("erro ao recuperar dados");
     }

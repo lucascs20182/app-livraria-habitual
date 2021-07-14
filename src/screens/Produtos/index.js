@@ -42,7 +42,7 @@ export default function Produtos({ navigation }) {
             )} />
         </View>
     :
-        <Text></Text>
+        <Text>Aguardando carregar</Text>
     }
     </> 
         
