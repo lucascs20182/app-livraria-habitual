@@ -22,8 +22,6 @@ export default function Login({ navigation }) {
       .then((resposta) => {
         const { Authorization, idUsuario } = resposta.data;
 
-        // console.log('token1' + Authorization);
-        
         storeData('token', Authorization);
         storeData('idUsuario', idUsuario);
 

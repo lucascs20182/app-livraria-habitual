@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
-import { storeData, getData, deleteKey } from '../../storage';
+import { storeData } from '../../storage';
 
 import { obterTodos } from '../../services/api-produto';
 
@@ -12,7 +12,6 @@ export default function Produtos({ navigation }) {
         obterTodos()
             .then((resposta) => {
                 setProdutos(resposta.data);
-                // console.log(resposta.data)
             })
             .catch((erro) => {
                 // alert("Erro ao listar produtos! Verifique o console.");
@@ -28,24 +27,23 @@ export default function Produtos({ navigation }) {
 
     return (
         <>
-    {/* prevents routes being rendered before usuarioLogado' state is set */}
-    { produtos.length != 0 ?
-        <View style={styles.container}>
-            <FlatList 
-                data={produtos} 
-                keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => handleDetalhesDoPedido(item)}>
-                        <Text>{item.nome}</Text>
-                        <Text>{item.url}</Text>
-                    </TouchableOpacity>
-            )} />
-        </View>
-    :
-        <Text>Aguardando carregar</Text>
-    }
-    </> 
-        
+            {produtos.length != 0 ?
+                <View style={styles.container}>
+                    <FlatList
+                        data={produtos}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity onPress={() => handleDetalhesDoPedido(item)}>
+                                <Text>{item.nome}</Text>
+                                <Text>{item.url}</Text>
+                            </TouchableOpacity>
+                        )} />
+                </View>
+                :
+                <Text>Aguardando carregar</Text>
+            }
+        </>
+
     );
 }
 

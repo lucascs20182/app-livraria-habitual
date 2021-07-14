@@ -37,9 +37,6 @@ export default function Carrinho() {
 
 
     <>
-      {/* prevents component being rendered before carrinhoCompras' state is set */}
-      {/* {console.log(carrinhoCompras.produtosDoPedido)} */}
-      {console.log(carrinhoCompras)}      
       {Object.keys(carrinhoCompras).length !== 0 ?
         <View style={styles.container}>
           {carrinhoCompras.produtosDoPedido.length !== 0 ?

@@ -14,7 +14,6 @@ export default function DetalhesDoPedido({ navigation }) {
     async function recuperarProduto() {
       const response = await getData('produtoEmFoco');
       const responseToken = await getData('idUsuario');
-      // console.log(response);
       
       setProduto(response);
       setIdUsuario(parseInt(responseToken));
@@ -44,11 +43,11 @@ export default function DetalhesDoPedido({ navigation }) {
     adicionarItemAoPedido(idUsuario, produto.id, quantidade)
       .then(resposta => {
         console.log(resposta)
-        // alert("Item adicionado ao carrinho!")
+        
         navigation.navigate('Carrinho');
       })
       .catch(erro => {
-        // alert("Erro! Verifique o console.")
+        
         console.log(erro);
       })
   }

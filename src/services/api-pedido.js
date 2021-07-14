@@ -7,8 +7,6 @@ export function adicionarItemAoPedido(idUsuario, idProduto, quantidade){
         quantidade : parseInt(quantidade, 10)
     }
 
-    // console.log(itemPedido)
-
     return new Promise((resolve, reject) => {
         return api.post('/pedido/detalhes', itemPedido)
         .then(response => resolve(response))
