@@ -9,11 +9,13 @@ const api = axios.create({
 function defineHeaderAuthorization() {
     async function recuperarToken() {
         const token = await getData('token');
-        const cadastro = await getData('isTelaCadastro');
+        // const cadastro = await getData('isTelaCadastro');
 
-        if(cadastro != null) {
-            api.defaults.headers.common['Authorization'] = token;
-        }
+        // console.log(cadastro)
+
+        // if(cadastro == null) {
+        api.defaults.headers.common['Authorization'] = token;
+        // }
     }
     
     recuperarToken();

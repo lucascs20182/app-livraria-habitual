@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
+import api from '../../services/api';
 import { cadastrar } from "../../services/api-usuario";
 import { storeData } from "../../storage";
 
@@ -20,6 +21,10 @@ export default function Cadastro({ navigation }) {
       return;
     }
 
+    // remove o header de authorization da rota de cadastro
+    // que não precisa utilizar token
+    delete api.defaults.headers.common["Authorization"];
+
     cadastrar(email, username, senha, nome, cpf, cep, numero, complemento)
     .then((resposta) => {
       alert("Usuário cadastrado! Faça o login.");
@@ -34,15 +39,16 @@ export default function Cadastro({ navigation }) {
 
   // ao cadastrar não é preciso token, para todas as demais rotas sim
   // essa função avisa aos services que não precisa passar token
-  useEffect(() => {
-    async function isTelaCadastro() {
-      const obj = {telaCadastro: true}
+  
+  // useEffect(() => {
+  //   async function isTelaCadastro() {
+  //     const obj = {telaCadastro: true}
 
-      storeData('isTelaCadastro', obj);
-    }
+  //     storeData('isTelaCadastro', obj);
+  //   }
 
-    isTelaCadastro();
-  }, [])
+  //   isTelaCadastro();
+  // }, [])
 
   return (
     <View style={styles.container}>

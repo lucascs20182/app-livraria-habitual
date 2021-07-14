@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import api from '../../services/api';
 import { logar } from "../../services/api-usuario";
-import { storeData } from '../../storage';
+import { storeData, getData } from '../../storage';
 
 import { StyleSheet, View, Text, TextInput, Button, Image } from 'react-native';
 
@@ -12,6 +13,16 @@ export default function Login({ navigation }) {
 
   function handleLogar() {
     setLoading(true);
+
+    async function recuperarToken() {
+      const token = await getData('token');
+
+      // adiciona novamente o header de authorization
+      // removido na tela anterior
+      api.defaults.headers.common['Authorization'] = token;
+    }
+
+    recuperarToken();
 
     if (!username || !senha) {
       alert("Favor informar username e senha");
