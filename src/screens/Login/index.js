@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
 
+import { logar } from "../../services/api-usuario";
 import { storeData } from '../../storage';
 
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, Image } from 'react-native';
 
 export default function Login({ navigation }) {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
 
   function handleLogar() {
-    console.log(username, senha);
+    setLoading(true);
 
-    storeData({ key: 'Usuário logado' })
+    if (!username || !senha) {
+      alert("Favor informar username e senha");
+      return;
+    }
 
-    navigation.navigate('Home');
+    logar(username, senha)
+      .then((resposta) => {
+        const { Authorization, idUsuario } = resposta.data;
+        
+        storeData('token', Authorization);
+        storeData('idUsuario', idUsuario);
+
+        setLoading(false);
+
+        navigation.navigate('Home');
+      })
+      .catch((erro) => {
+        alert("Erro! Verifique o console.");
+        console.log(erro);
+        setLoading(false);
+      });
+
   }
 
   return (
@@ -32,10 +53,16 @@ export default function Login({ navigation }) {
         </View>
       </View>
 
-      <View style={styles.containerButton}>
-        <Button title="Entrar" onPress={handleLogar} />
-        <Button title="Cadastrar" onPress={() => navigation.navigate('Cadastro')} />
-      </View>
+      {loading ? 
+        // <Image source={require('../../resources/loading.gif')} />
+        <Text>carregando...</Text>
+      :
+        <View style={styles.containerButton}>
+          <Button title="Entrar" onPress={handleLogar} />
+          <Button title="Cadastrar" onPress={() => navigation.navigate('Cadastro')} />
+        </View>
+      }
+
     </View>
   );
 }

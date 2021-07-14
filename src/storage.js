@@ -1,18 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const storeData = async value => {
+export const storeData = async (key, value) => {
     try {
         const jsonValue = JSON.stringify(value);
-        // boa prática: usar @storage_NomeDaChave
-        await AsyncStorage.setItem('@storage_Key', jsonValue);
+
+        await AsyncStorage.setItem(`@storage_${key}`, jsonValue);
     } catch (e) {
         console.log("erro ao salvar dados");
     }
 }
 
-export const getData = async () => {
+export const getData = async (key) => {
     try {
-        const jsonValue = await AsyncStorage.getItem('@storage_Key')
+        const jsonValue = await AsyncStorage.getItem(`@storage_${key}`)
 
         if (jsonValue != null) {
             console.log(JSON.parse(jsonValue));
@@ -24,9 +24,9 @@ export const getData = async () => {
     }
 }
 
-export const deleteKey = async () => {
+export const deleteKey = async (key) => {
     try {
-        await AsyncStorage.removeItem('@storage_Key');
+        await AsyncStorage.removeItem(`@storage_${key}`);
     } catch (e) {
         console.log("erro ao deletar dados");
     }

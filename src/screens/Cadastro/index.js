@@ -1,23 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
+import { cadastrar } from "../../services/api-usuario";
+
 export default function Cadastro({ navigation }) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
   const [cep, setCep] = useState('');
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
 
   function handleCadastrar() {
-    console.log(email, username, senha, nome, cpf,
-        telefone, dataNascimento, cep, numero, complemento);
+    if (!email || !username || !senha || !nome || !cpf || !cep || !numero) {
+      alert("Complemento é opcional. Favor, informar todos os demais campos");
+      return;
+    }
 
-    navigation.navigate('Home');
+    cadastrar(email, username, senha, nome, cpf, cep, numero, complemento)
+    .then((resposta) => {
+      alert("Usuário cadastrado! Faça o login.");
+      navigation.navigate('Home');
+    })
+    .catch((erro) => {
+      alert("Erro! Verifique o console.");
+      console.error(erro);
+    });
+    
   }
 
   return (
@@ -43,8 +54,32 @@ export default function Cadastro({ navigation }) {
 
         <View>
             <Text>Nome</Text>
-            <TextInput style={styles.textInput} placeholder="*******"
-            secureTextEntry={true} value={nome} onChangeText={e => setNome(e)} />
+            <TextInput style={styles.textInput} placeholder="Lucas Cruz"
+            value={nome} onChangeText={e => setNome(e)} />
+        </View>
+
+        <View>
+            <Text>CPF</Text>
+            <TextInput style={styles.textInput} placeholder="12671212182"
+            value={cpf} onChangeText={e => setCpf(e)} />
+        </View>
+
+        <View>
+            <Text>CEP</Text>
+            <TextInput style={styles.textInput} placeholder="25780000"
+            value={cep} onChangeText={e => setCep(e)} />
+        </View>
+
+        <View>
+            <Text>No. da casa</Text>
+            <TextInput style={styles.textInput} placeholder="102"
+            value={numero} onChangeText={e => setNumero(e)} />
+        </View>
+
+        <View>
+            <Text>Complemento</Text>
+            <TextInput style={styles.textInput}
+            value={complemento} onChangeText={e => setComplemento(e)} />
         </View>
       </View>
 
