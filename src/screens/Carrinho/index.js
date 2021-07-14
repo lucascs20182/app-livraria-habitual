@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 import { obterDadosDoCliente } from '../../services/api-usuario';
 import { obterCarrinhoCompras } from '../../services/api-pedido';
@@ -34,17 +34,26 @@ export default function Carrinho() {
   }, [])
 
   return (
-    
+
 
     <>
-    {/* prevents component being rendered before carrinhoCompras' state is set */}
-    { Object.keys(carrinhoCompras).length !== 0 ?
-      <View style={styles.container}>
-        <Text>carrinho</Text>
-      </View>
-    :
-      <Text>Aguardando carregar</Text>
-    }
+      {/* prevents component being rendered before carrinhoCompras' state is set */}
+      {/* {console.log(carrinhoCompras.produtosDoPedido)} */}
+      {Object.keys(carrinhoCompras).length !== 0 ?
+        <View style={styles.container}>
+          <FlatList
+            data={carrinhoCompras.produtosDoPedido}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity>
+                <Text>{item.produto.nome}</Text>
+                <Text>{item.produto.url}</Text>
+              </TouchableOpacity>
+            )} />
+        </View>
+        :
+        <Text>Aguardando carregar</Text>
+      }
     </>
   );
 }
