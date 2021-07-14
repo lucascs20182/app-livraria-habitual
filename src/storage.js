@@ -27,9 +27,11 @@ export const getData = async (key) => {
     }
 }
 
-export const deleteKey = async (key) => {
+export const deleteKey = async () => {
     try {
-        await AsyncStorage.removeItem(`@storage_${key}`);
+        await AsyncStorage.getAllKeys()
+            .then(keys => AsyncStorage.multiRemove(keys))
+            // .then(() => alert('success'));
     } catch (e) {
         console.log("erro ao deletar dados");
     }

@@ -39,17 +39,22 @@ export default function Carrinho() {
     <>
       {/* prevents component being rendered before carrinhoCompras' state is set */}
       {/* {console.log(carrinhoCompras.produtosDoPedido)} */}
+      {console.log(carrinhoCompras)}      
       {Object.keys(carrinhoCompras).length !== 0 ?
         <View style={styles.container}>
-          <FlatList
-            data={carrinhoCompras.produtosDoPedido}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Text>{item.produto.nome}</Text>
-                <Text>{item.produto.url}</Text>
-              </TouchableOpacity>
-            )} />
+          {carrinhoCompras.produtosDoPedido.length !== 0 ?
+            <FlatList
+              data={carrinhoCompras.produtosDoPedido}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity>
+                  <Text>{item.produto.nome}</Text>
+                  <Text>{item.produto.url}</Text>
+                </TouchableOpacity>
+              )} />
+          :
+            <Text>Nenhum produto no carrinho</Text>
+          }
         </View>
         :
         <Text>Aguardando carregar</Text>

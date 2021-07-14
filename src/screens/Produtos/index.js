@@ -15,8 +15,8 @@ export default function Produtos({ navigation }) {
                 // console.log(resposta.data)
             })
             .catch((erro) => {
-                alert("Erro ao listar produtos! Verifique o console.");
-                console.log(erro);
+                // alert("Erro ao listar produtos! Verifique o console.");
+                console.log("Erro ao listar produtos: " + erro);
             });
     }, [])
 
