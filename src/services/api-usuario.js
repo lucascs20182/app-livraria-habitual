@@ -23,3 +23,11 @@ export const logar = (username, senha) => {
             .catch(error => reject(error))
     });
 }
+
+export const obterDadosDoCliente = (idCliente) => {
+    return new Promise((resolve, reject) => {
+        return api.get(`/cliente/${idCliente}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+}

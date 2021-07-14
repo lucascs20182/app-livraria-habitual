@@ -15,3 +15,11 @@ export function adicionarItemAoPedido(idUsuario, idProduto, quantidade){
         .catch(error => reject(error))
     });
 }
+
+export const obterCarrinhoCompras = (idPedido) => {
+    return new Promise((resolve, reject) => {
+        return api.get(`/pedido/${idPedido}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+}
