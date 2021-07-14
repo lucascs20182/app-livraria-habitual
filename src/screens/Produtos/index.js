@@ -5,19 +5,26 @@ import { storeData, getData, deleteKey } from '../../storage';
 
 import { obterTodos } from '../../services/api-produto';
 
-export default function Produtos() {
+export default function Produtos({ navigation }) {
     const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
         obterTodos()
             .then((resposta) => {
                 setProdutos(resposta.data);
+                // console.log(resposta.data)
             })
             .catch((erro) => {
                 alert("Erro ao listar produtos! Verifique o console.");
                 console.log(erro);
             });
     }, [])
+
+    async function handleDetalhesDoPedido(item) {
+        await storeData('produtoEmFoco', item);
+
+        navigation.navigate('DetalhesDoPedido');
+    }
 
     return (
         <>
@@ -28,7 +35,7 @@ export default function Produtos() {
                 data={produtos} 
                 keyExtractor={item => item.id.toString()}
                 renderItem={({item}) => (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleDetalhesDoPedido(item)}>
                         <Text>{item.nome}</Text>
                         <Text>{item.url}</Text>
                     </TouchableOpacity>

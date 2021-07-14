@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './screens/Login';
 import Cadastro from './screens/Cadastro';
 import Home from './screens/Home';
+import DetalhesDoPedido from './screens/DetalhesDoPedido';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function Routes({ logado }) {
             <Screen name="Login" component={Login} />
             <Screen name="Cadastro" component={Cadastro} />
             <Screen name="Home" component={Home} />
+            <Screen name="DetalhesDoPedido" component={DetalhesDoPedido} />
         </Navigator>
       </NavigationContainer>
   );
