@@ -9,6 +9,8 @@ export const cadastrar = (email, username, senha, nome, cpf, cep, numero, comple
         }]
     }
 
+    console.log(usuario);
+
     return new Promise((resolve, reject) => {
         return api.post('/create', usuario)
             .then(response => resolve(response))
