@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
 
 import { obterDadosDoCliente } from '../../services/api-usuario';
-import { obterCarrinhoCompras } from '../../services/api-pedido';
+import { obterCarrinhoCompras, removerItemDoPedido } from '../../services/api-pedido';
 
 import { getData } from '../../storage';
 
@@ -33,6 +33,17 @@ export default function Carrinho() {
     prepararDados();
   }, [])
 
+  function handleExcluirItem(id) {
+    removerItemDoPedido(id)
+      .then((resposta) => {
+        console.log(resposta.data);
+      })
+      .catch((erro) => {
+        // alert("Erro ao listar produtos! Verifique o console.");
+        console.log("Erro ao listar produtos: " + erro);
+      });
+  }
+
   return (
 
 
@@ -44,12 +55,19 @@ export default function Carrinho() {
               data={carrinhoCompras.produtosDoPedido}
               keyExtractor={item => item.id.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity>
-                  <Text>{item.produto.nome}</Text>
-                  <Text>{item.produto.url}</Text>
-                </TouchableOpacity>
+                <View style={styles.itemContainer}>
+                  <Image style={styles.tinyLogo}
+                    source={{ uri: item.produto.url }} />
+                  <View style={{ alignItems: 'center' }}>
+                    <Text>{item.produto.nome}</Text>
+                    <View style={styles.containerButton}>
+                      <Button title="Editar" onPress={() => {}} />
+                      <Button title="Remover" onPress={() => handleExcluirItem(item.id)} />
+                    </View>
+                  </View>
+                </View>
               )} />
-          :
+            :
             <Text>Nenhum produto no carrinho</Text>
           }
         </View>
@@ -66,5 +84,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  itemContainer: {
+    marginVertical: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+
+  tinyLogo: {
+    width: 100,
+    height: 130,
+    marginRight: 10
+  },
+
+  containerButton: {
+    width: 150,
+    // height: 55,
+    justifyContent: 'space-between',
+    // marginTop: 40
   },
 });

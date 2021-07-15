@@ -21,3 +21,11 @@ export const obterCarrinhoCompras = (idPedido) => {
         .catch(error => reject(error))
     });
 }
+
+export const removerItemDoPedido = (idItem) => {
+    return new Promise((resolve, reject) => {
+        return api.delete(`/pedido/detalhes/${idItem}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+}
