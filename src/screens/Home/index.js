@@ -10,7 +10,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 export default function Home() {
   return (
-    <Navigator initialRouteName="Home" tabBarOptions={{ activeTintColor: '#e91e63' }}>
+    <Navigator initialRouteName="Produtos" tabBarOptions={{ activeTintColor: '#e91e63' }}>
       <Screen
         name="Produtos" component={Produtos}
         options={{

@@ -30,7 +30,7 @@ export default StyleSheet.create({
     tituloLogin: {
         // fontFamily: 'Inter',
         fontSize: 25,
-        lineHeight: 32,
+        // lineHeight: 32,
         letterSpacing: 15,
         textTransform: 'uppercase',
         fontWeight: '500',
@@ -54,7 +54,7 @@ export default StyleSheet.create({
         // fontFamily: 'Inter',
         width: 400,
         fontSize: 17,
-        lineHeight: 15,
+        // lineHeight: 15,
         // letterSpacing: 1,
         color: '#fff',
         marginLeft: 10
@@ -97,7 +97,7 @@ export default StyleSheet.create({
 
     botaoEntrar: {
         fontSize: 17,
-        lineHeight: 18,
+        // lineHeight: 18,
         letterSpacing: 3,
         fontWeight: 'bold',
         textTransform: 'uppercase',
