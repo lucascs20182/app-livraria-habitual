@@ -33,7 +33,7 @@ export default StyleSheet.create({
         lineHeight: 32,
         letterSpacing: 15,
         textTransform: 'uppercase',
-        fontWeight: 500,
+        fontWeight: '500',
         color: '#fff',
         alignSelf: 'center',
         marginBottom: 15
@@ -50,7 +50,7 @@ export default StyleSheet.create({
     },
 
     textInput: {
-        fontWeight: 400,
+        fontWeight: '400',
         // fontFamily: 'Inter',
         width: 400,
         fontSize: 17,
