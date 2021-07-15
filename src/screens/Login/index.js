@@ -8,7 +8,7 @@ import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 
 import {
   StyleSheet, View, Text, TextInput, 
-  Button, ImageBackground, Image 
+  ActivityIndicator, TouchableOpacity, ImageBackground, Image 
 } from 'react-native';
 
 export default function Login({ navigation }) {
@@ -33,6 +33,7 @@ export default function Login({ navigation }) {
 
     if (!username || !senha) {
       alert("Favor informar username e senha");
+      setLoading(false);
       return;
     }
 
@@ -87,16 +88,23 @@ export default function Login({ navigation }) {
                 onChangeText={e => setSenha(e)} />
             </View>
             <View style={styles.linhaBranca}></View>
-          </View>        
+          </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}
+            style={styles.containerTextoCadastro}>
+              <Text style={styles.textoCadastro}>Não tem conta? Cadastre-se</Text>
+          </TouchableOpacity>
 
         {loading ? 
           // <Image source={require('../../resources/loading.gif')} />
-          <Text>carregando...</Text>
+          <ActivityIndicator size="large" color="#fff" />
         :
-          <View style={styles.containerButton}>
-            <Button title="Entrar" onPress={handleLogar} />
-            <Button title="Cadastrar" onPress={() => navigation.navigate('Cadastro')} />
-          </View>
+        <TouchableOpacity onPress={handleLogar}
+          style={styles.containerBotaoEntrar}>
+            <Text style={styles.botaoEntrar}>Entrar</Text>
+        </TouchableOpacity>
+          
+            
         }
         </View>
 
@@ -158,10 +166,11 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     // fontFamily: 'Inter',
     width: 400,
-    fontSize: 15,
-    lineHeight: 18,
+    fontSize: 17,
+    lineHeight: 15,
+    // letterSpacing: 1,
     color: '#fff',
-    marginLeft: 7
+    marginLeft: 10
   },
 
   linhaBranca: {
@@ -176,5 +185,35 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'space-between',
     marginTop: 40
+  },
+
+  containerTextoCadastro: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 25
+  },
+
+  textoCadastro: {
+    color: "#fff"
+  },
+
+  containerBotaoEntrar: {
+    width: 120,
+    height: 38,
+    backgroundColor: "#fff",
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 20
+  },
+
+  botaoEntrar: {
+    fontSize: 17,
+    lineHeight: 18,
+    letterSpacing: 3,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: "#464646"
   }
 });
