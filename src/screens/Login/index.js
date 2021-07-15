@@ -4,12 +4,19 @@ import api from '../../services/api';
 import { logar } from "../../services/api-usuario";
 import { storeData, getData } from '../../storage';
 
-import { StyleSheet, View, Text, TextInput, Button, Image } from 'react-native';
+import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
+
+import {
+  StyleSheet, View, Text, TextInput, 
+  Button, ImageBackground, Image 
+} from 'react-native';
 
 export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
+  const [placeHolderUsername, setPlaceHolderUsername] = useState('Digite seu username');
+  const [placeHolderSenha, setPlaceHolderSenha] = useState('Digite sua senha');
 
   function handleLogar() {
     setLoading(true);
@@ -49,51 +56,125 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View>
-        <View>
-          <Text>Username</Text>
-          <TextInput style={styles.textInput} placeholder="ex.: lucascs20182"
-            value={username} onChangeText={e => setUsername(e)} />
+    <View style={styles.containerBackground}>
+      <ImageBackground style={styles.background}
+              source={require('../../resources/background-login.png')} />
+
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require('../../resources/logo.png')} />
+
+        <View style={styles.containerLogin}>
+          <Text style={styles.tituloLogin}>Login</Text>
+
+          <View style={styles.containerInput}>
+            <View style={styles.emLinha}>
+              <FontAwesome5 name="user-alt" color="white" size={18}/>
+              <TextInput style={styles.textInput} placeholder={placeHolderUsername}
+                placeholderTextColor="#fff" value={username} onFocus={e => setPlaceHolderUsername('')}
+                onBlur={e => setPlaceHolderUsername('Digite seu username')}
+                onChangeText={e => setUsername(e)} />
+            </View>
+            <View style={styles.linhaBranca}></View>
+          </View>
+
+          <View style={styles.containerInput}>
+            <View style={styles.emLinha}>
+              <FontAwesome name="lock" color="white" size={23}/>
+              <TextInput style={styles.textInput} placeholder={placeHolderSenha}
+                onFocus={e => setPlaceHolderSenha('')}
+                onBlur={e => setPlaceHolderSenha('Digite sua senha')}
+                placeholderTextColor="#fff" value={senha} secureTextEntry
+                onChangeText={e => setSenha(e)} />
+            </View>
+            <View style={styles.linhaBranca}></View>
+          </View>        
+
+        {loading ? 
+          // <Image source={require('../../resources/loading.gif')} />
+          <Text>carregando...</Text>
+        :
+          <View style={styles.containerButton}>
+            <Button title="Entrar" onPress={handleLogar} />
+            <Button title="Cadastrar" onPress={() => navigation.navigate('Cadastro')} />
+          </View>
+        }
         </View>
 
-        <View>
-          <Text>Senha</Text>
-          <TextInput style={styles.textInput} placeholder="*******"
-            secureTextEntry={true} value={senha} onChangeText={e => setSenha(e)} />
-        </View>
       </View>
-
-      {loading ? 
-        // <Image source={require('../../resources/loading.gif')} />
-        <Text>carregando...</Text>
-      :
-        <View style={styles.containerButton}>
-          <Button title="Entrar" onPress={handleLogar} />
-          <Button title="Cadastrar" onPress={() => navigation.navigate('Cadastro')} />
-        </View>
-      }
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  containerBackground: {
+    flex: 1,
+    position: 'relative'
+  },
+
+  background: {
+    width: '100%', 
+    height: '100%',
+    position: 'absolute'
+  },
+
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 4,
-    width: 300,
+
+  logo: {
+    width: 252,
+    height: 49,
   },
+
+  containerLogin: {
+
+  },
+
+  tituloLogin: {
+    // fontFamily: 'Inter',
+    fontSize: 25,
+    lineHeight: 32,
+    letterSpacing: 15,
+    textTransform: 'uppercase',
+    fontWeight: 500,
+    color: '#fff',
+    alignSelf: 'center',
+    marginBottom: 15
+  },
+
+  containerInput: {
+    marginVertical: 10,
+    width: 310
+  },
+
+  emLinha: {
+    flexDirection: 'row',
+    paddingLeft: 5,
+  },
+
+  textInput: {
+    fontWeight: 400,
+    // fontFamily: 'Inter',
+    width: 400,
+    fontSize: 15,
+    lineHeight: 18,
+    color: '#fff',
+    marginLeft: 7
+  },
+
+  linhaBranca: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    width: '100%',
+    marginTop: 8
+  },
+
   containerButton: {
     width: 300,
     height: 100,
     justifyContent: 'space-between',
     marginTop: 40
-  },
+  }
 });
