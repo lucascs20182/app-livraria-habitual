@@ -48,7 +48,7 @@ export default function Login({ navigation }) {
 
         setLoading(false);
 
-        navigation.navigate('Home');
+        navigation.navigate('Produtos');
       })
       .catch((erro) => {
         alert("Erro! Verifique o console.");

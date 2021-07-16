@@ -1,57 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
 
-import { storeData } from '../../storage';
+import { deleteKey } from '../../storage';
 
-import { obterTodos } from '../../services/api-produto';
+import { View, Text, Button, Image, TouchableOpacity, } from 'react-native';
+import styles from '../../util/containerLogado';
 
-export default function Produtos({ navigation }) {
-    const [produtos, setProdutos] = useState([]);
+import BottomTabPersonalizada from '../../components/BottomTabPersonalizada';
+import ListaProdutos from '../../components/ListaProdutos';
+import Produtos from '../../components/ListaProdutos';
+import Carrinho from '../../components/ItensCarrinho';
 
-    useEffect(() => {
-        obterTodos()
-            .then((resposta) => {
-                setProdutos(resposta.data);
-            })
-            .catch((erro) => {
-                // alert("Erro ao listar produtos! Verifique o console.");
-                console.log("Erro ao listar produtos: " + erro);
-            });
-    }, [])
+export default function Perfil({ navigation }) {
 
-    async function handleDetalhesDoPedido(item) {
-        await storeData('produtoEmFoco', item);
+    // function handleLogout() {
+    //     deleteKey();
 
-        navigation.navigate('DetalhesDoPedido');
-    }
+    //     navigation.navigate('Login');
+    // }
 
     return (
-        <>
-            {produtos.length != 0 ?
-                <View style={styles.container}>
-                    <FlatList
-                        data={produtos}
-                        keyExtractor={item => item.id.toString()}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleDetalhesDoPedido(item)}>
-                                <Text>{item.nome}</Text>
-                                <Text>{item.url}</Text>
-                            </TouchableOpacity>
-                        )} />
-                </View>
-                :
-                <Text>Aguardando carregar</Text>
-            }
-        </>
+        <View style={styles.containerBackground}>
+            <View style={styles.backgroundBlue}>
+                <Image style={styles.logo} source={require('../../resources/logo.png')} />            
+                <View style={styles.backgroundWhite}>
+                    <View style={styles.container}>                        
+                        <ListaProdutos />
 
+                    </View>
+                </View>
+            </View> 
+            <BottomTabPersonalizada navigation={navigation} />
+        </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+// });

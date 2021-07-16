@@ -1,108 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
+import React from 'react';
 
-import { obterDadosDoCliente } from '../../services/api-usuario';
-import { obterCarrinhoCompras, removerItemDoPedido } from '../../services/api-pedido';
+import { deleteKey } from '../../storage';
 
-import { getData } from '../../storage';
+import { View, Text, Button, Image, TouchableOpacity, } from 'react-native';
+import styles from '../../util/containerLogado';
 
-export default function Carrinho() {
-  const [carrinhoCompras, setCarrinhoCompras] = useState({});
+import BottomTabPersonalizada from '../../components/BottomTabPersonalizada';
+import ItensCarrinho from '../../components/ItensCarrinho';
+import Produtos from '../../components/ListaProdutos';
+import Carrinho from '../../components/ItensCarrinho';
 
-  useEffect(() => {
-    async function prepararDados() {
-      const id = await getData('idUsuario');
+export default function Perfil({ navigation }) {
 
-      obterDadosDoCliente(id)
-        .then((resposta) => {
-          obterCarrinhoCompras(resposta.data.pedidoAtivo)
-            .then((resposta) => {
-              setCarrinhoCompras(resposta.data);
-            })
-            .catch((erro) => {
-              alert("Erro ao listar carrinho de compras! Verifique o console.");
-              console.log(erro);
-            });
-        })
-        .catch((erro) => {
-          alert("Erro ao listar dados do usuário! Verifique o console.");
-          console.log(erro);
-        });
-    }
+    // function handleLogout() {
+    //     deleteKey();
 
-    prepararDados();
-  }, [])
+    //     navigation.navigate('Login');
+    // }
 
-  function handleExcluirItem(id) {
-    removerItemDoPedido(id)
-      .then((resposta) => {
-        console.log(resposta.data);
-      })
-      .catch((erro) => {
-        // alert("Erro ao listar produtos! Verifique o console.");
-        console.log("Erro ao listar produtos: " + erro);
-      });
-  }
+    return (
+        <View style={styles.containerBackground}>
+            <View style={styles.backgroundBlue}>
+                <Image style={styles.logo} source={require('../../resources/logo.png')} />            
+                <View style={styles.backgroundWhite}>
+                    <View style={styles.container}>                        
+                        <ItensCarrinho />
 
-  return (
-
-
-    <>
-      {Object.keys(carrinhoCompras).length !== 0 ?
-        <View style={styles.container}>
-          {carrinhoCompras.produtosDoPedido.length !== 0 ?
-            <FlatList
-              data={carrinhoCompras.produtosDoPedido}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.itemContainer}>
-                  <Image style={styles.tinyLogo}
-                    source={{ uri: item.produto.url }} />
-                  <View style={{ alignItems: 'center' }}>
-                    <Text>{item.produto.nome}</Text>
-                    <View style={styles.containerButton}>
-                      <Button title="Editar" onPress={() => {}} />
-                      <Button title="Remover" onPress={() => handleExcluirItem(item.id)} />
                     </View>
-                  </View>
                 </View>
-              )} />
-            :
-            <Text>Nenhum produto no carrinho</Text>
-          }
+            </View> 
+            <BottomTabPersonalizada navigation={navigation} />
         </View>
-        :
-        <Text>Aguardando carregar</Text>
-      }
-    </>
-  );
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  itemContainer: {
-    marginVertical: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-
-  tinyLogo: {
-    width: 100,
-    height: 130,
-    marginRight: 10
-  },
-
-  containerButton: {
-    width: 150,
-    // height: 55,
-    justifyContent: 'space-between',
-    // marginTop: 40
-  },
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+// });
