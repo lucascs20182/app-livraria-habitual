@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
+
+import {
+  StyleSheet, Text, View, ActivityIndicator, FlatList, 
+  Image, Button 
+} from 'react-native';
 
 import { obterDadosDoCliente } from '../../services/api-usuario';
 import { obterCarrinhoCompras, removerItemDoPedido } from '../../services/api-pedido';
@@ -46,9 +50,10 @@ export default function ItensCarrinho() {
 
   return (
     <>
-      {Object.keys(carrinhoCompras).length !== 0 ?
+      { Object.keys(carrinhoCompras).length !== 0 ?
         <View style={styles.container}>
-          {carrinhoCompras.produtosDoPedido.length !== 0 ?
+          
+          { carrinhoCompras.produtosDoPedido.length !== 0 ?
             <FlatList
               data={carrinhoCompras.produtosDoPedido}
               keyExtractor={item => item.id.toString()}
@@ -65,12 +70,14 @@ export default function ItensCarrinho() {
                   </View>
                 </View>
               )} />
-            :
+          :
             <Text>Nenhum produto no carrinho</Text>
           }
         </View>
-        :
-        <Text>Aguardando carregar</Text>
+      :
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color="#464646" />
+        </View>
       }
     </>
   );

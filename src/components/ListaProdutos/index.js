@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+
+import { 
+    StyleSheet, Text, View, FlatList, TouchableOpacity,
+    ActivityIndicator
+} from 'react-native';
 
 import { storeData } from '../../storage';
 
@@ -39,8 +43,10 @@ export default function ListaProdutos({ navigation }) {
                             </TouchableOpacity>
                         )} />
                 </View>
-                :
-                <Text>Aguardando carregar</Text>
+            :
+                <View style={styles.containerIndicator}>
+                    <ActivityIndicator size="large" color="#464646" />
+                </View>
             }
         </>
 
@@ -49,6 +55,13 @@ export default function ListaProdutos({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%'
+        width: '100%',
+    },
+
+    containerIndicator: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
