@@ -5,9 +5,7 @@ import { storeData } from '../../storage';
 
 import { obterTodos } from '../../services/api-produto';
 
-import BottomTabPersonalizada from '../BottomTabPersonalizada';
-
-export default function Produtos({ navigation }) {
+export default function ListaProdutos({ navigation }) {
     const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
@@ -16,7 +14,7 @@ export default function Produtos({ navigation }) {
                 setProdutos(resposta.data);
             })
             .catch((erro) => {
-                // alert("Erro ao listar produtos! Verifique o console.");
+                alert("Erro ao listar produtos! Favor, atualizar o app.");
                 console.log("Erro ao listar produtos: " + erro);
             });
     }, [])

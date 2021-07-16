@@ -6,7 +6,7 @@ import { obterCarrinhoCompras, removerItemDoPedido } from '../../services/api-pe
 
 import { getData } from '../../storage';
 
-export default function Carrinho() {
+export default function ItensCarrinho() {
   const [carrinhoCompras, setCarrinhoCompras] = useState({});
 
   useEffect(() => {
@@ -39,14 +39,12 @@ export default function Carrinho() {
         console.log(resposta.data);
       })
       .catch((erro) => {
-        // alert("Erro ao listar produtos! Verifique o console.");
+        alert("Erro ao excluir item! Favor, atualize o app.");
         console.log("Erro ao listar produtos: " + erro);
       });
   }
 
   return (
-
-
     <>
       {Object.keys(carrinhoCompras).length !== 0 ?
         <View style={styles.container}>
@@ -61,7 +59,7 @@ export default function Carrinho() {
                   <View style={{ alignItems: 'center' }}>
                     <Text>{item.produto.nome}</Text>
                     <View style={styles.containerButton}>
-                      <Button title="Editar" onPress={() => {}} />
+                      <Button title="Editar" onPress={() => { }} />
                       <Button title="Remover" onPress={() => handleExcluirItem(item.id)} />
                     </View>
                   </View>
@@ -81,12 +79,14 @@ export default function Carrinho() {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   itemContainer: {
     marginVertical: 30,
+    marginHorizontal: 13,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -100,8 +100,6 @@ const styles = StyleSheet.create({
 
   containerButton: {
     width: 150,
-    // height: 55,
-    justifyContent: 'space-between',
-    // marginTop: 40
+    justifyContent: 'space-between'
   },
 });

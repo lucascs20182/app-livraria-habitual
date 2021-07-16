@@ -11,7 +11,7 @@ export default function App() {
   useEffect(() => {
     async function handleSession() {
         const response = await getData('token');
-        // console.log(response);
+        
         if(response != null) {
           setUsuarioLogado('logado');
         } else {

@@ -1,23 +1,12 @@
 import React from 'react';
 
-import { deleteKey } from '../../storage';
-
-import { View, Text, Button, Image, TouchableOpacity, } from 'react-native';
+import { View, Image } from 'react-native';
 import styles from '../../util/containerLogado';
 
 import BottomTabPersonalizada from '../../components/BottomTabPersonalizada';
 import DadosUsuario from '../../components/DadosUsuario';
-import Produtos from '../../components/ListaProdutos';
-import Carrinho from '../../components/ItensCarrinho';
 
 export default function Perfil({ navigation }) {
-
-    // function handleLogout() {
-    //     deleteKey();
-
-    //     navigation.navigate('Login');
-    // }
-
     return (
         <View style={styles.containerBackground}>
             <View style={styles.backgroundBlue}>
@@ -33,11 +22,3 @@ export default function Perfil({ navigation }) {
         </View>
     );
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//     },
-// });

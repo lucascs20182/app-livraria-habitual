@@ -28,9 +28,7 @@ export default StyleSheet.create({
     },
 
     tituloLogin: {
-        // fontFamily: 'Inter',
         fontSize: 25,
-        // lineHeight: 32,
         letterSpacing: 15,
         textTransform: 'uppercase',
         fontWeight: '500',
@@ -51,11 +49,8 @@ export default StyleSheet.create({
 
     textInput: {
         fontWeight: '400',
-        // fontFamily: 'Inter',
         width: 400,
         fontSize: 17,
-        // lineHeight: 15,
-        // letterSpacing: 1,
         color: '#fff',
         marginLeft: 10
     },
@@ -92,12 +87,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        // marginTop: 20
     },
 
     botaoEntrar: {
         fontSize: 17,
-        // lineHeight: 18,
         letterSpacing: 3,
         fontWeight: 'bold',
         textTransform: 'uppercase',

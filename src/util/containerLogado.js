@@ -6,13 +6,6 @@ export default StyleSheet.create({
         position: 'relative',
         justifyContent: 'space-between'
     },
-
-    // background: {
-    //     width: '100%',
-    //     height: '100%',
-    //     position: 'absolute',
-    //     backgroundColor: '#E5E4E5',
-    // }, 
     
     logo: {
         width: 155,
@@ -22,7 +15,6 @@ export default StyleSheet.create({
 
     container: {
         flex: 1,
-        // justifyContent: 'space-around',
         alignItems: 'center',
     },
 
@@ -33,7 +25,6 @@ export default StyleSheet.create({
         marginTop: -350,
         borderRadius: 35,
         alignItems: 'center',
-
     },
 
     backgroundWhite: {
@@ -73,7 +64,6 @@ export default StyleSheet.create({
         alignSelf: 'flex-start',
         fontSize: 14,
         marginLeft: 20,
-        
     },
 
     containerBotaoEntrar: {
