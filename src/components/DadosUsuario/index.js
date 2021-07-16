@@ -26,7 +26,7 @@ export default function DadosUsuario({ navigation }) {
                     setDados(resposta.data);                  
                 })
                 .catch((erro) => {
-                    alert("Erro ao listar dados do usuário! Verifique o console.");
+                    alert("Erro ao listar dados do usuário! Favor, atualizar o app.");
                     console.log(erro);
                 });
         }
