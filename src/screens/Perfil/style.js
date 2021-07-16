@@ -38,7 +38,6 @@ export default StyleSheet.create({
     },
 
     text: {
-        fontFamily: 'Arial',
         fontStyle: 'normal',
         fontSize: 19,
         marginTop: 8,
@@ -76,7 +75,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginTop: 15,
+        marginTop: 15
     },
 
     botaoEntrar: {

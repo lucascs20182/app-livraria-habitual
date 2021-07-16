@@ -8,9 +8,9 @@ import {
 import { obterDadosDoCliente } from '../../services/api-usuario';
 import { obterCarrinhoCompras, removerItemDoPedido } from '../../services/api-pedido';
 
-import { getData } from '../../storage';
+import { getData, storeData } from '../../storage';
 
-export default function ItensCarrinho() {
+export default function ItensCarrinho({ navigation }) {
   const [carrinhoCompras, setCarrinhoCompras] = useState({});
 
   useEffect(() => {
@@ -48,6 +48,14 @@ export default function ItensCarrinho() {
       });
   }
 
+  function handleEditarItem(itemCarrinho) {
+    storeData('itemCarrinho', itemCarrinho);
+    storeData('editar', {editar: true});
+    storeData('produtoEmFoco', itemCarrinho.produto);
+
+    navigation.navigate('DetalhesDoPedido');
+  }
+
   return (
     <>
       { Object.keys(carrinhoCompras).length !== 0 ?
@@ -63,8 +71,9 @@ export default function ItensCarrinho() {
                     source={{ uri: item.produto.url }} />
                   <View style={{ alignItems: 'center' }}>
                     <Text>{item.produto.nome}</Text>
+                    <Text>{`quantidade: ${item.quantidadeProdutos}`}</Text>
                     <View style={styles.containerButton}>
-                      <Button title="Editar" onPress={() => { }} />
+                      <Button title="Editar" onPress={() => handleEditarItem(item)} />
                       <Button title="Remover" onPress={() => handleExcluirItem(item.id)} />
                     </View>
                   </View>

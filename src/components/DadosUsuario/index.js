@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { deleteKey, getData } from '../../storage';
+import { deleteKeys, getData } from '../../storage';
 import { obterDadosDoCliente } from '../../services/api-usuario';
 
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
@@ -35,7 +35,7 @@ export default function DadosUsuario({ navigation }) {
     }, [])
 
     function handleLogout() {
-        deleteKey();
+        deleteKeys();
 
         navigation.navigate('Login');
     }

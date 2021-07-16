@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-import { getData } from '../../storage';
+import { getData, deleteKey } from '../../storage';
 
-import { adicionarItemAoPedido } from '../../services/api-pedido';
+import { adicionarItemAoPedido, editarItemDoPedido } from '../../services/api-pedido';
 
 export default function DetalhesDoPedido({ navigation }) {
   const [produto, setProduto] = useState({});
   const [idUsuario, setIdUsuario] = useState(-1);
   const [quantidade, setQuantidade] = useState(1);
 
+  const [itemCarrinho, setItemCarrinho] = useState({});
+  const [editar, setEditar] = useState(false);
+
   useEffect(() => {
+    // deleteKey('editar');
+
     async function recuperarProduto() {
       const response = await getData('produtoEmFoco');
       const responseToken = await getData('idUsuario');
-      
+
+      const itemCarrinho = await getData('itemCarrinho');
+      const editar = await getData('editar');
+
       setProduto(response);
       setIdUsuario(parseInt(responseToken));
+      
+      setItemCarrinho(itemCarrinho);
+      setEditar(editar);
   }
 
   recuperarProduto();   
@@ -52,6 +63,29 @@ export default function DetalhesDoPedido({ navigation }) {
       })
   }
 
+  function handleEditarItem() {
+    const novasInfos = {
+      idDoClienteLogado: idUsuario,
+      idProduto: produto.id,
+      quantidade
+    }
+
+    editarItemDoPedido(itemCarrinho.id, novasInfos)
+      .then((resposta) => {
+        console.log(resposta.data);
+
+        navigation.navigate('Carrinho');
+      })
+      .catch((erro) => {
+        alert("Erro ao editar item!");
+        console.log("Erro ao listar produtos: " + erro);
+
+        navigation.navigate('Carrinho');
+      });
+
+      deleteKey('editar');
+  }
+
   return (
     <>
     {Object.values(produto).length !== 0 ? 
@@ -64,7 +98,7 @@ export default function DetalhesDoPedido({ navigation }) {
         <View>
           <Text style={{margin: 20, justifyContent: 'center'}}>Quantidade a ser comprada</Text>
           <View style={styles.containerButton2}>
-            <TextInput value={quantidade} onChangeText={e => setQuantidade(e)}
+            <TextInput value={quantidade.toString()} onChangeText={e => setQuantidade(e)}
               style={styles.inputQuantidade} keyboardType='numeric'
               maxLength={3} editable={false} />
 
@@ -74,7 +108,12 @@ export default function DetalhesDoPedido({ navigation }) {
         </View>
 
         <View style={styles.containerButton}>
-          <Button title="Adicionar ao carrinho" onPress={() => handleAddAoCarrinho()} />
+          {editar ?
+            <Button title="Editar" onPress={() => handleEditarItem()} />
+          :
+            <Button title="Adicionar ao carrinho" onPress={() => handleAddAoCarrinho()} />
+          }
+          
           <Button title="Cancelar" onPress={() => navigation.navigate('Produtos')} />
         </View>
       </View>

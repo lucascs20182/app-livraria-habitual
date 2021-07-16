@@ -29,3 +29,11 @@ export const removerItemDoPedido = (idItem) => {
         .catch(error => reject(error))
     });
 }
+
+export const editarItemDoPedido = (idItem, novasInfos) => {
+    return new Promise((resolve, reject) => {
+        return api.put(`/pedido/detalhes/${idItem}`, novasInfos)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+}
