@@ -27,7 +27,7 @@ export default function ListaProdutos({ navigation }) {
     async function handleDetalhesDoPedido(item) {
         await storeData('produtoEmFoco', item);
 
-        navigation.navigate('DetalhesDoPedido');
+        navigation.navigate('DetalhesPedido');
     }
 
     return (

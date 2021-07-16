@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './screens/Login';
 import Cadastro from './screens/Cadastro';
 import Produtos from './screens/Produtos';
-import DetalhesDoPedido from './screens/DetalhesDoPedido';
+import DetalhesPedido from './screens/DetalhesPedido';
 import Carrinho from './screens/Carrinho';
 import Perfil from './screens/Perfil';
 
@@ -22,7 +22,7 @@ export default function Routes({ logado }) {
             <Screen name="Login" component={Login} />
             <Screen name="Cadastro" component={Cadastro} />
             <Screen name="Produtos" component={Produtos} />
-            <Screen name="DetalhesDoPedido" component={DetalhesDoPedido} />
+            <Screen name="DetalhesPedido" component={DetalhesPedido} />
             <Screen name="Carrinho" component={Carrinho} />
             <Screen name="Perfil" component={Perfil} />
         </Navigator>

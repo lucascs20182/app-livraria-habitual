@@ -3,8 +3,8 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import styles from '../../util/containerDeslogado';
 
-import BottomTabPersonalizada from '../../components/BottomTabPersonalizada';
-import DetalhesPedido from './detalhes';
+// import BottomTabPersonalizada from '../../components/BottomTabPersonalizada';
+import InfosDetalhesPedido from '../../components/InfosDetalhesPedido';
 
 export default function Perfil({ navigation }) {
     return (
@@ -13,7 +13,7 @@ export default function Perfil({ navigation }) {
                 <Image style={styles.logo} source={require('../../resources/logo.png')} />            
                 <View style={styles.backgroundWhite}>
                     <View style={styles.container}>                        
-                        <DetalhesPedido navigation={navigation} />
+                        <InfosDetalhesPedido navigation={navigation} />
 
                     </View>
                 </View>

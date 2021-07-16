@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  StyleSheet, Text, View, ActivityIndicator, FlatList, 
-  Image, Button 
+  StyleSheet, Text, View, ActivityIndicator, FlatList,
+  Image, TouchableOpacity, Button
 } from 'react-native';
 
 import { obterDadosDoCliente } from '../../services/api-usuario';
@@ -50,40 +50,62 @@ export default function ItensCarrinho({ navigation }) {
 
   function handleEditarItem(itemCarrinho) {
     storeData('itemCarrinho', itemCarrinho);
-    storeData('editar', {editar: true});
+    storeData('editar', { editar: true });
     storeData('produtoEmFoco', itemCarrinho.produto);
 
-    navigation.navigate('DetalhesDoPedido');
+    navigation.navigate('DetalhesPedido');
   }
 
   return (
     <>
-      { Object.keys(carrinhoCompras).length !== 0 ?
+      {Object.keys(carrinhoCompras).length !== 0 ?
         <View style={styles.container}>
-          
-          { carrinhoCompras.produtosDoPedido.length !== 0 ?
-            <FlatList
-              data={carrinhoCompras.produtosDoPedido}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.itemContainer}>
-                  <Image style={styles.tinyLogo}
-                    source={{ uri: item.produto.url }} />
-                  <View style={{ alignItems: 'center' }}>
-                    <Text>{item.produto.nome}</Text>
-                    <Text>{`quantidade: ${item.quantidadeProdutos}`}</Text>
-                    <View style={styles.containerButton}>
-                      <Button title="Editar" onPress={() => handleEditarItem(item)} />
-                      <Button title="Remover" onPress={() => handleExcluirItem(item.id)} />
+
+
+          {/* <View style={styles.container2}> */}
+          <Text>Meu carrinho</Text>
+          {carrinhoCompras.produtosDoPedido.length !== 0 ?
+            <View style={{ height: 260 }}>
+              <FlatList
+                data={carrinhoCompras.produtosDoPedido}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                  <View style={styles.itemContainer}>
+                    <Image style={styles.tinyLogo}
+                      source={{ uri: item.produto.url }} />
+                    <View style={styles.infosItens}>
+                      <Text>{item.produto.nome}</Text>
+                      <Text>{item.produto.autor || 'Autor não cadastrado'}</Text>
+                      <Text>{`R$ ${item.produto.preco}`}</Text>
+                      <Text>{`quantidade: ${item.quantidadeProdutos}`}</Text>
+                      <View style={styles.containerButton}>
+                        <TouchableOpacity onPress={() => handleEditarItem(item)}
+                          style={styles.botaoEditar}>
+                          <Text>Editar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleExcluirItem(item.id)}
+                          style={styles.botaoExcluir}>
+                          <Text>Remover</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
-                </View>
-              )} />
-          :
+                )} />
+            </View>
+            :
             <Text>Nenhum produto no carrinho</Text>
           }
+
+          <Text>Total</Text>
+
+          <Button title="Confirmar Compra" />
+
+          {/* <Button title="Voltar" /> */}
+          {/* </View> */}
+
+
         </View>
-      :
+        :
         <View style={styles.container}>
           <ActivityIndicator size="large" color="#464646" />
         </View>
@@ -97,25 +119,41 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 
   itemContainer: {
-    marginVertical: 30,
-    marginHorizontal: 13,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    marginVertical: 7,
+    width: 287,    
+    height: 119, // quando o título é muito grande, buga
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'rgba(0,0,0,.25)',
+    padding: 10,
+    paddingLeft: 20
+  },
+
+  infosItens: {
+    width: 190
   },
 
   tinyLogo: {
-    width: 100,
-    height: 130,
+    width: 57,
+    height: 84,
     marginRight: 10
   },
 
   containerButton: {
-    width: 150,
-    justifyContent: 'space-between'
+    alignSelf: 'flex-end',
+    flexDirection: 'row'
+  },
+
+  botaoEditar: {
+    width: 40,
+    height: 16,
+    borderWidth: 1,
+    borderColor: '#b4b4b4',
+    marginRight: 10
   },
 });
