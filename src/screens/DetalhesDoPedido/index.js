@@ -75,7 +75,7 @@ export default function DetalhesDoPedido({ navigation }) {
 
         <View style={styles.containerButton}>
           <Button title="Adicionar ao carrinho" onPress={() => handleAddAoCarrinho()} />
-          <Button title="Cancelar" />
+          <Button title="Cancelar" onPress={() => navigation.navigate('Produtos')} />
         </View>
       </View>
     :

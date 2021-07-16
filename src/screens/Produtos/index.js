@@ -13,7 +13,7 @@ export default function Perfil({ navigation }) {
                 <Image style={styles.logo} source={require('../../resources/logo.png')} />            
                 <View style={styles.backgroundWhite}>
                     <View style={styles.container}>                        
-                        <ListaProdutos />
+                        <ListaProdutos navigation={navigation} />
                     </View>
                 </View>
             </View> 
