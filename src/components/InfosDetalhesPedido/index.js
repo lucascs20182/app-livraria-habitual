@@ -95,11 +95,11 @@ export default function DetalhesDoPedido({ navigation }) {
         <Text>{produto.nome}</Text>
 
         <ScrollView style={{height: 130, marginVertical: 20}}>
-          <Text>{produto.descricao}</Text>
+          <Text>{produto.descricao}</Text>          
         </ScrollView>
 
         <View>
-          <Text style={{margin: 20, justifyContent: 'center'}}>Quantidade a ser comprada</Text>
+          <Text style={{margin: 20, alignSelf: 'center'}}>Quantidade a ser comprada</Text>
           <View style={styles.containerButton2}>
             <TextInput value={quantidade.toString()} onChangeText={e => setQuantidade(e)}
               style={styles.inputQuantidade} keyboardType='numeric'
@@ -128,27 +128,28 @@ export default function DetalhesDoPedido({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+  container: {   
+    position: 'relative',
     width: '100%',
-    // height: '80%',
-    padding: 15
+    height: '90%',
+    padding: 15,   
   },
 
   containerButton: {
     width: 300,
     height: 100,
     justifyContent: 'space-between',
-    marginTop: 40
+    margin: 40,
+    alignSelf: 'center',   
   },
 
   containerButton2: {
     flexDirection: 'row',
     width: 100,
-    height: 25
+    height: 25,    
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',   
   },
 
   inputQuantidade: {
