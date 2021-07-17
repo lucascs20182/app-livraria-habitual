@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 import { getData, deleteKey } from '../../storage';
 
@@ -105,8 +105,14 @@ export default function DetalhesDoPedido({ navigation }) {
               style={styles.inputQuantidade} keyboardType='numeric'
               maxLength={3} editable={false} />
 
-              <Button title="+" onPress={() => handleQuantidade(true)} />
-              <Button title="-" onPress={() => handleQuantidade(false)} />
+              <TouchableOpacity onPress={() => handleQuantidade(true)}
+                style={styles.containerBotaoAdicionar}>
+                  <Text style={styles.botaoAdicionar}>+</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleQuantidade(false)}
+                style={styles.containerBotaoAdicionar}>
+                  <Text style={styles.botaoAdicionar}>-</Text>
+              </TouchableOpacity>             
           </View>
         </View>
 
@@ -153,8 +159,29 @@ const styles = StyleSheet.create({
   },
 
   inputQuantidade: {
-    width: 20,
+    width: 40,
+    height: 35,
     backgroundColor: '#ddd',
     marginHorizontal: 10,
-  }
+    paddingHorizontal: 12,
+    marginLeft: -20,
+  },
+
+  containerBotaoAdicionar: {
+    width: 40,
+    height: 40,
+    backgroundColor: "#000170",
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginHorizontal: 7,
+},
+
+  botaoAdicionar: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: "#fff",
+}
 });
